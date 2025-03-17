@@ -119,7 +119,7 @@ services:
     restart: always
 ```
 
-## Part IV : Docker security
+## Docker security
 🌞 Devenir root
 ```
 docker run --rm -v /:/mnt alpine chroot /mnt cat /etc/shadow
@@ -132,4 +132,5 @@ sudo trivy image mysql:5.7
 sudo trivy image dockerfile
 sudo trivy image nginx:latest
 ```
+
 
