@@ -119,7 +119,7 @@ EXPOSE 80
 CMD ["apache2", "-DFOREGROUND"]
 ```
 
-Part III : docker-compose
+## Part III : docker-compose
 ```
 CMD ["apache2", "-DFOREGROUND"]
 
