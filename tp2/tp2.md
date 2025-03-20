@@ -1,5 +1,7 @@
 ##tp2 
+
 ##I. Premiers pas
+
 🌞 Créez une VM depuis le Azure CLI
 
 ```
