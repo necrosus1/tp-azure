@@ -1,6 +1,6 @@
-**tp2 
+# tp2 
 
-##I. Premiers pas
+## I. Premiers pas
 
 🌞 Créez une VM depuis le Azure CLI
 
@@ -176,7 +176,7 @@ PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.939/1.277/2.198/0.470 ms
 ```
 
-##Part II : cloud-init
+## Part II : cloud-init
 
 🌞 Tester cloud-init
 
@@ -327,7 +327,7 @@ TriggeredBy: ● docker.socket
 maxuser@cloudinitvmdocker:~$ docker images | grep alpine
 alpine       latest    aded1e1a5b37   4 weeks ago   7.83MB
 ```
-##*Part III : Terraform
+## Part III : Terraform
 
 🌞 Constater le déploiement
 ```
@@ -534,7 +534,8 @@ variable "ssh_public_key_path" {
 }
 
 
-
+```
+```
 C:\Users\max16\terraform_plan>ssh -J hoplite@20.234.147.208 hoplite@10.0.1.4
 
 >ssh -J hoplite@20.234.147.208 hoplite@10.0.1.4
@@ -572,6 +573,7 @@ See "man sudo_root" for details.
 
 hoplite@tomate-node2:~$
 ```
+
 🌞 Intégrer la gestion de cloud-init
 ```
 main.tf :
