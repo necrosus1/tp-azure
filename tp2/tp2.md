@@ -1,8 +1,9 @@
-"tp2" 
-**I. Premiers pas
+##tp2 
+##I. Premiers pas
 🌞 Créez une VM depuis le Azure CLI
 
-''
+```
+
 az vm create -g necrosus -n super_vm --image Ubuntu2204 --admin-username hoplite --ssh-key-values ~/.ssh/
 id_rsa.pub
 Selecting "northeurope" may reduce your costs. The region you've selected may cost more for the same services. You can disable this message in the future with the command "az config set core.display_region_identified=false". Learn more at https://go.microsoft.com/fwlink/?linkid=222571
@@ -19,10 +20,11 @@ Selecting "northeurope" may reduce your costs. The region you've selected may 
   "zones": ""
 }
 
-''
+```
+
 🌞 Assurez-vous que vous pouvez vous connecter à la VM en SSH sur son IP publique
 
-''
+```
 ssh hoplite@4.233.102.203
 The authenticity of host '4.233.102.203 (4.233.102.203)' can't be established.
 ED25519 key fingerprint is SHA256:sJ2cfT4nEL32cUftx+6tYwAoGgQ5HrVqz+dz4AH7vnQ.
@@ -63,10 +65,11 @@ applicable law.
 
 To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
-'' 
-verification presence walinuxagent
+```
 
-''
+verification presence walinuxagent:
+
+```
 systemctl status walinuxagent
  walinuxagent.service - Azure Linux Agent
      Loaded: loaded (/lib/systemd/system/walinuxagent.service; enabled; vendor preset: enabled)
@@ -89,21 +92,21 @@ Mar 18 08:48:46 supervm python3[1257]: 2025-03-18T08:48:46.011640Z INFO ExtHandl
 Mar 18 08:48:46 supervm python3[1257]: 2025-03-18T08:48:46.012397Z INFO ExtHandler ExtHandler ProcessExtensionsGoalStat>
 Mar 18 08:48:46 supervm python3[1257]: 2025-03-18T08:48:46.034578Z INFO ExtHandler ExtHandler Looking for existing remo>
 Mar 18 08:48:46 supervm python3[1257]: 2025-03-18T08:48:46.042944Z INFO ExtHandler ExtHandler [HEARTBEAT] Agent WALinux>
-''
-verification presence cloud-init
+```
+verification presence cloud-init:
 
-''
+```
 $ cloud-init status
 status: done
-''
+```
 
-**II. Un ptit LAN
+II. Un ptit LAN
 
 🌞 Créez deux VMs depuis le Azure CLI
 
-''
-vm1 ip : 
 
+vm1 ip : 
+```
 ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -117,11 +120,11 @@ ip a
        valid_lft forever preferred_lft forever
     inet6 fe80::6245:bdff:fe6c:c200/64 scope link
        valid_lft forever preferred_lft forever
-''
+```
 
 ping vm1 vers vm2
 
-''
+```
 ping 10.0.0.5
 PING 10.0.0.5 (10.0.0.5) 56(84) bytes of data.
 64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=1.21 ms
@@ -135,11 +138,11 @@ PING 10.0.0.5 (10.0.0.5) 56(84) bytes of data.
 --- 10.0.0.5 ping statistics ---
 7 packets transmitted, 7 received, 0% packet loss, time 6068ms
 rtt min/avg/max/mdev = 0.820/1.518/4.062/1.057 ms
-''
 
+```
 ip vm2
 
-''
+```
 hoplite@vm2:~$ ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -153,11 +156,11 @@ hoplite@vm2:~$ ip a
        valid_lft forever preferred_lft forever
     inet6 fe80::20d:3aff:fe95:7e41/64 scope link
        valid_lft forever preferred_lft forever
-''
+```
 
 ping vm2 vers vm1
 
-''
+```
 hoplite@vm2:~$ ping 10.0.0.4
 PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
 64 bytes from 10.0.0.4: icmp_seq=1 ttl=64 time=2.20 ms
@@ -169,13 +172,13 @@ PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
 --- 10.0.0.4 ping statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 4005ms
 rtt min/avg/max/mdev = 0.939/1.277/2.198/0.470 ms
-''
+```
 
-**Part II : cloud-init
+##Part II : cloud-init
 
 🌞 Tester cloud-init
 
-''
+```
  az vm create -g necrosus -n cloudinit_vm --image Ubuntu2204 --admin-username hoplite --ssh-key-values
  C:\Users\max16\.ssh\id_rsa.pub --custom-data "C:\Users\max16\cloud-init.txt"
 Selecting "northeurope" may reduce your costs. The region you've selected may cost more for the same services. You can disable this message in the future with the command "az config set core.display_region_identified=false". Learn more at https://go.microsoft.com/fwlink/?linkid=222571
@@ -191,11 +194,11 @@ Selecting "northeurope" may reduce your costs. The region you've selected may 
   "resourceGroup": "necrosus",
   "zones": ""
 }
-''
+```
 
 🌞 Vérifier que cloud-init a bien fonctionné
 
-''
+```
  ssh hoplite@4.211.171.157
 The authenticity of host '4.211.171.157 (4.211.171.157)' can't be established.
 ED25519 key fingerprint is SHA256:tntWhv/xc8ObH3nQUqTBcNrnbkcwIZ/+/cNyXikVuok.
@@ -242,13 +245,13 @@ hoplite@cloudinitvm:~$ id hoplite
 uid=1000(hoplite) gid=1000(hoplite) groups=1000(hoplite),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),119(netdev),120(lxd)
 hoplite@cloudinitvm:~$ grep hoplite /etc/passwd
 hoplite:x:1000:1000:Ubuntu:/home/hoplite:/bin/bash
-''
+```
 
 🌞 Utilisez cloud-init pour préconfigurer la VM :
 
 cloud-init-docker.yaml 
 
-''
+```
 #cloud-config
 users:
   - name: maxuser
@@ -273,10 +276,10 @@ runcmd:
 
 
  az vm create -g necrosus2 -n cloudinit_vm_docker --image Ubuntu2204 --admin-username hoplite --ssh-key-values "C:\Users\max16\.ssh\id_rsa.pub" --custom-data "C:\Users\max16\cloud-init-docker.yaml"
-''
+```
 
 verification:
-''
+```
 maxuser@cloudinitvmdocker:~$ id maxuser
 
 uid=1000(maxuser) gid=1001(maxuser) groups=1001(maxuser),1000(docker)
@@ -321,19 +324,19 @@ TriggeredBy: ● docker.socket
 
 maxuser@cloudinitvmdocker:~$ docker images | grep alpine
 alpine       latest    aded1e1a5b37   4 weeks ago   7.83MB
-''
-**Part III : Terraform
+```
+##*Part III : Terraform
 
 🌞 Constater le déploiement
-''
+```
 C:\Users\max16\terraform-azure>az group list -o table
 Name                    Location    Status
 ----------------------  ----------  ---------
 tp1                     westus      Succeeded
 NetworkWatcherRG        westus      Succeeded
 tp2_magueule-resources  westeurope  Succeeded
-''
-''
+```
+```
 C:\Users\max16\terraform-azure>az vm list -o table
 Name             ResourceGroup           Location    Zones
 ---------------  ----------------------  ----------  -------
@@ -343,11 +346,11 @@ tp2_magueule-vm  TP2_MAGUEULE-RESOURCES  westeurope
 Name             ResourceGroup           Location    Zones
 ---------------  ----------------------  ----------  -------
 tp2_magueule-vm  tp2_magueule-resources  westeurope
-''
+```
 
 🌞 Créer un plan Terraform avec les contraintes suivantes
 
-
+```
 provider "azurerm" {
   features {}
   subscription_id = "id de votre compte azure"
@@ -566,9 +569,9 @@ To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
 
 hoplite@tomate-node2:~$
-
+```
 🌞 Intégrer la gestion de cloud-init
-
+```
 main.tf :
 provider "azurerm" {
   features {}
@@ -652,9 +655,9 @@ resource "azurerm_linux_virtual_machine" "node1" {
     caching              = "ReadWrite"
   }
 }
-
+```
 cloud-init.txt :
-
+```
 #cloud-config
 users:
   - name: mierukinit
@@ -679,10 +682,10 @@ runcmd:
   - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   - usermod -aG docker mierukinit
   - docker pull alpine:latest
-
+```
 🌞 Moar cloud-init and Terraform configuration : Proof !
 main.tf :
-
+```
 provider "azurerm" {
   features {}
   subscription_id = "id-abonnement-azure"
@@ -776,9 +779,10 @@ resource "azurerm_linux_virtual_machine" "node1" {
     caching              = "ReadWrite"
   }
 }
+```
 
 cloud-init.txt :
-
+```
 #cloud-config
 users:
   - name: mierukinit
@@ -837,9 +841,11 @@ runcmd:
   - usermod -aG docker mierukinit
   - docker pull alpine:latest
   - docker compose -f /opt/wikijs/docker-compose.yml up
+```
 
 curl du wikijs :
-
+```
 PS C:\Users\max16> curl http://20.61.77.155:10101/
 <!DOCTYPE html><html><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>Wiki.js Setup</title><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Wiki.js"}
 </script><link type="text/css" rel="stylesheet" href="/_assets/css/setup.22871ffac1b643eed4d9.css"><script type="text/javascript" src="/_assets/js/runtime.js?1738531300"></script><script type="text/javascript" src="/_assets/js/setup.js?1738531300"></script></head><body><div id="root"><setup wiki-version="2.5.306"></setup></div></body></html>
+```
